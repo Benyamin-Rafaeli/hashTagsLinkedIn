@@ -1,0 +1,19 @@
+{
+  "name": "hashtagslinkedin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cy": "cypress run --browser chrome --headless --spec cypress/integration/login.spec.js",
+    "co": "cypress open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^9.2.0"
+  },
+  "devDependencies": {
+    "prettier": "2.5.1"
+  }
+}
