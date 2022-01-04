@@ -68,8 +68,8 @@ const dup = uniqueCount => {
     graph.push({ Letter: shortName, Freq: value });
   });
 
-  // const fileNameDate = date();
-  // cy.writeFile(`cypress/fixtures/${fileNameDate}.json`, graph);
+  const fileNameDate = date();
+  cy.writeFile(`cypress/fixtures/${fileNameDate}.json`, graph);
   cy.writeFile(`cypress/fixtures/graph.json`, graph);
 };
 
