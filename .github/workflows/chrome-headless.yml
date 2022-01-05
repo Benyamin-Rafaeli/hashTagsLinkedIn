@@ -1,22 +1,21 @@
-name: Chrome headless
+- name: Cypress.io
+  uses: cypress-io/github-action@v2.9.7
+  with:
+    spec: cypress/integration/login.spec.js
 
-on: push
-
-jobs:
-  chrome-headless:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Headless Chrome
-        uses: cypress-io/github-action@v2
-        timeout-minutes: 10
-        with:
-          build: npm run build
-          start: npm start
-          browser: chrome
-          headless: true
-          record: true
-        env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.dashboardRecordKey }}
+#name: GitHub Actions Demo
+#on: [pull_request]
+#jobs:
+#  cypress-run:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: Install node
+#        uses: actions/setup-node@v2
+#        with:
+#          node:version: '14'
+#      - name: Install dependencies
+#        run: npm install
+#      - name: Cypress run
+#        uses: cypress-io/github-action@v2

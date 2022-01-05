@@ -1,9 +1,10 @@
 {
   "env": {
-    "username": "",
-    "password": "",
-    "hashTag": ""
+    "username": "{{secrets._EMAIL}}",
+    "password": "{{secrets._PASS}}",
+    "hashTag": "{{secrets._HASH}}"
   },
+  "videoCompression": false,
   "viewportWidth": 1920,
   "viewportHeight": 1080
 }
