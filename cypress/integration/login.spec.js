@@ -23,7 +23,7 @@ const navigate = (page, hashTag) => {
       page: page,
     },
   }).then(() => {
-    cy.scrollTo('bottom', { easing: 'linear' }).wait(delay);
+    cy.scrollTo('bottom', { easing: 'linear', ensureScrollable: false }).wait(delay);
     console.log(`page number -  ${page}`);
   });
 };
