@@ -1,8 +1,8 @@
 {
   "env": {
-    "username": "{{secrets._EMAIL}}",
-    "password": "{{secrets._PASS}}",
-    "hashTag": "{{secrets._HASH}}"
+    "username": "",
+    "password": "",
+    "hashTag": "#panorays"
   },
   "videoCompression": false,
   "viewportWidth": 1920,

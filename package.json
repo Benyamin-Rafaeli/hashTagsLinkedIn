@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cy": "cypress run --browser chrome --headless --spec cypress/integration/login.spec.js",
-    "co": "cypress open"
+    "cypress:chrome": "cypress run --browser chrome",
+    "cypress:open": "cypress open",
+    "cypress:verify": "cypress verify",
+    "cypress:run": "cypress run"
   },
   "keywords": [],
   "author": "",

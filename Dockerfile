@@ -1,21 +1,11 @@
-# use Cypress provided image with all dependencies included
 FROM cypress/base:10
-RUN node --version
-RUN npm --version
-WORKDIR /home/node/app
-# copy our test application
-COPY package.json package-lock.json ./
-COPY app ./app
-#COPY serve.json ./
-# copy Cypress tests
-COPY cypress.json cypress ./
-COPY cypress ./cypress
+WORKDIR /e2e
+COPY cypress cypress
+COPY cypress.json .
+COPY package.json .
+COPY package-lock.json .
 
-# avoid many lines of progress bars during install
-# https://github.com/cypress-io/cypress/issues/1243
-ENV CI=1
-
-# install NPM dependencies and Cypress binary
-RUN npm ci
-# check if the binary was installed successfully
+RUN npm install --save-dev cypress
 RUN $(npm bin)/cypress verify
+
+ENTRYPOINT ["npm", "run", "-s", "cypress:run", "-e", "username=$TESTUSERNAME,password=$TESTPASSWORD"]
