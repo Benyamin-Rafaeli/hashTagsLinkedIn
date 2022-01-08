@@ -12,7 +12,7 @@ jobs:
           $(npm bin)/cypress cache list
           $(npm bin)/cypress verify
       - name: Run Cypress tests
-        run: npm run -s cypress:run -- -e username=${{ secrets._EMAIL }},password=${{ secrets._PASS }}
+        run: npm run -s cypress:chrome -- -e username=${{ secrets._EMAIL }},password=${{ secrets._PASS }}
         continue-on-error: true
 
 #- name: Cypress.io
