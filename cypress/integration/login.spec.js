@@ -23,7 +23,8 @@ const navigate = (page, hashTag) => {
       page: page,
     },
   }).then(() => {
-    cy.scrollTo('bottom', { easing: 'linear', ensureScrollable: false }).wait(delay);
+    Cypress._.times(5, () => cy.type('{pagedown}'));
+    // cy.scrollTo('bottom', { ensureScrollable: false }).wait(delay);
     console.log(`page number -  ${page}`);
   });
 };

@@ -4,7 +4,7 @@ COPY cypress cypress
 COPY cypress.json .
 COPY package.json .
 COPY package-lock.json .
-RUN npx browserslist@latest --update-db
+
 RUN npm install --save-dev cypress
 RUN $(npm bin)/cypress verify
 
