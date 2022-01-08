@@ -90,7 +90,7 @@ describe('linkedin', () => {
       });
   });
 
-  it.only('clicks', () => {
+  it.skip('clicks', () => {
     login();
 
     // cy.visit('https://www.linkedin.com/in/kaylamenashe888/recent-activity/').wait(delay);
@@ -107,7 +107,7 @@ describe('linkedin', () => {
     // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/documents/
   });
 
-  it('add connections', () => {
+  it.skip('add connections', () => {
     login();
     // navigate to https://www.linkedin.com/mynetwork/
     // find artdeco-button__text => Connect
