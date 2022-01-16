@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import debug from 'debug';
+
 const username = Cypress.env('username');
 const password = Cypress.env('password');
 const hashTag = Cypress.env('hashTag');
@@ -7,15 +9,29 @@ const hashTag = Cypress.env('hashTag');
 const delay = 3000;
 const arr = [];
 
+const randomNumber = max => {
+  return Math.floor(Math.random() * max);
+};
+
 const login = () => {
   cy.visit('https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin').wait(delay);
-  cy.get('#username').type(username).wait(delay);
-  cy.get('#password').type(password).wait(delay);
+  cy.get('#username')
+    .type(username, { delay: randomNumber(10) })
+    .wait(delay);
+  cy.get('#password')
+    .type(password, { delay: randomNumber(10) })
+    .wait(delay);
   cy.get('.btn__primary--large').click().wait(delay);
-  navigate(1, hashTag);
+};
+
+const chooseArea = geoUrn => {
+  cy.visit('https://www.linkedin.com/search/results/people/', {
+    qs: { geoUrn },
+  });
 };
 
 const navigate = (page, hashTag) => {
+  // https://www.linkedin.com/search/results/all/?keywords=#panorays&origin=GLOBAL_SEARCH_HEADER
   cy.visit('https://www.linkedin.com/search/results/all/', {
     qs: {
       keywords: hashTag,
@@ -24,7 +40,6 @@ const navigate = (page, hashTag) => {
     },
   }).then(() => {
     Cypress._.times(3, () => {
-      // cy.type('{pagedown}');
       cy.scrollTo('bottom', { ensureScrollable: false }).wait(delay);
     });
     console.log(`page number -  ${page}`);
@@ -93,8 +108,12 @@ describe('linkedin', () => {
       });
   });
 
-  it.skip('clicks', () => {
+  it('clicks', () => {
     login();
+    chooseArea(101620260);
+    cy.get('.app-aware-link').then(el => {
+      el.eq(0).find('href');
+    });
 
     // cy.visit('https://www.linkedin.com/in/kaylamenashe888/recent-activity/').wait(delay);
     // cy.get('[type="like-icon"]').children();

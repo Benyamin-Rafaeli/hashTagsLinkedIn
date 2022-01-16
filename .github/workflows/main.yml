@@ -14,29 +14,3 @@ jobs:
       - name: Run Cypress tests
         run: npm run -s cypress:chrome -- -e username=${{ secrets._EMAIL }},password=${{ secrets._PASS }}
         continue-on-error: true
-
-#- name: Cypress.io
-#  uses: cypress-io/github-action@v2.9.7
-#  with:
-#    spec: cypress/integration/login.spec.js
-
-
-#  https://github.com/Benyamin-Rafaeli/cy-link
-
-
-#name: End-to-end tests
-#on: [ push ]
-#jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Install a project and cypress with a clean slate
-#        run: |
-#          npm ci
-#          $(npm bin)/cypress cache path
-#          $(npm bin)/cypress cache list
-#          $(npm bin)/cypress verify
-#      - name: Run Cypress tests
-#        run: npm run -s cypress:run -- -e username=${{ secrets.TESTUSERNAME }},password=${{ secrets.TESTPASSWORD }}
-#        continue-on-error: true
