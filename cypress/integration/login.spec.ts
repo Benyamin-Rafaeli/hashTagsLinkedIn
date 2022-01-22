@@ -52,7 +52,7 @@ const date = () => {
 };
 
 describe('linkedin', () => {
-  before(() => cy.loginUi(username, password).waitForResources());
+  // before(() => cy.loginUi(username, password).waitForResources());
 
   it('count all users that shared', () => {
     cy.navigate(undefined, hashTag);
@@ -68,11 +68,19 @@ describe('linkedin', () => {
       .then(() => dup(arr));
   });
 
-  it('clicks for likes', () => {
-    // chooseArea(101620260);
+  it.only('clicks for likes', () => {
+    // chooseArea(101620260); // israel
     // cy.get('.app-aware-link').then(el => {
     //   el.eq(0).find('href');
     // });
+    // https://www.linkedin.com/in/narjes-abdalhady/recent-activity/shares/
+    cy.fixture('/pipl/hr_arr_00-25_clean.json').then(el => {
+      cy.log(el);
+      cy.visit('/');
+      // cy.visit(`${el[0]}/recent-activity/shares/`).waitForResources();
+      // scroll
+      // check which index liked
+    });
     // cy.visit('https://www.linkedin.com/in/kaylamenashe888/recent-activity/').wait(delay);
     // cy.get('[type="like-icon"]').children();
     // https://www.linkedin.com/mynetwork/invite-connect/connections/

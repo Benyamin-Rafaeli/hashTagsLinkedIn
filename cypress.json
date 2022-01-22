@@ -1,7 +1,8 @@
 {
+  "baseUrl": "https://www.linkedin.com",
   "env": {
-    "username": "mekadem11@gmail.com",
-    "password": "mySK1DcMVDajkPg",
+    "username": "",
+    "password": "",
     "hashTag": "#panorays"
   },
   "retries": {
