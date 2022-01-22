@@ -13,12 +13,30 @@ const chooseArea = geoUrn => {
   });
 };
 
-const collectFromPage = () => {
-  cy.get('.entity-result__content-container').each(block => {
-    const entityOnPage = block.find('.entity-result__title-text').text();
-    const sharedPersonName = entityOnPage.trim().split('View')[0];
-    arr.push(sharedPersonName);
+const dup = uniqueCount => {
+  let count = {};
+  uniqueCount.forEach(i => (count[i] = (count[i] || 0) + 1));
+
+  let graph = [];
+
+  Object.entries(count).forEach(([key, value]) => {
+    const shortName = key.split(' ')[0].concat(key.split(' ')[1]);
+    graph.push({ Letter: shortName, Freq: value });
   });
+
+  const fileNameDate = date();
+  cy.writeFile(`cypress/fixtures/${fileNameDate}.json`, graph);
+  cy.writeFile(`cypress/fixtures/graph.json`, graph);
+};
+
+const collectFromPage = () => {
+  cy.get('.entity-result__content-container')
+    .each(block => {
+      const entityOnPage = block.find('.entity-result__title-text').text();
+      const sharedPersonName = entityOnPage.trim().split('View')[0];
+      arr.push(sharedPersonName);
+    })
+    .then(() => cy.waitForResources());
 };
 
 const date = () => {
@@ -34,40 +52,37 @@ const date = () => {
 };
 
 describe('linkedin', () => {
-  it('navigate', () => {
-    cy.loginUi(username, password);
+  before(() => cy.loginUi(username, password).waitForResources());
+
+  it('count all users that shared', () => {
     cy.navigate(undefined, hashTag);
+    cy.getTotalPageNumber();
 
     cy.get('@times')
       .then(time => {
-        Cypress._.times(Number(time), n => cy.navigate(String(n + 1), hashTag));
-        collectFromPage();
+        Cypress._.times(Number(time), n => {
+          cy.navigate(String(n + 1), hashTag).then(() => collectFromPage());
+          cy.log(`PAGE NUMBER: ${n}`);
+        });
       })
-      .then(() => {
-        dup(arr);
-      });
+      .then(() => dup(arr));
   });
 
-  // it.skip('clicks', () => {
-  //   login();
-  //   chooseArea(101620260);
-  //   cy.get('.app-aware-link').then(el => {
-  //     el.eq(0).find('href');
-  //   });
-  //
-  //   // cy.visit('https://www.linkedin.com/in/kaylamenashe888/recent-activity/').wait(delay);
-  //   // cy.get('[type="like-icon"]').children();
-  //
-  //   // https://www.linkedin.com/mynetwork/invite-connect/connections/
-  //
-  //   // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/
-  //   // likes    => [type="like-icon"]
-  //   // comments => [type="speech-bubble-icon"]
-  //
-  //   // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/posts/
-  //   // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/shares/
-  //   // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/documents/
-  // });
+  it('clicks for likes', () => {
+    // chooseArea(101620260);
+    // cy.get('.app-aware-link').then(el => {
+    //   el.eq(0).find('href');
+    // });
+    // cy.visit('https://www.linkedin.com/in/kaylamenashe888/recent-activity/').wait(delay);
+    // cy.get('[type="like-icon"]').children();
+    // https://www.linkedin.com/mynetwork/invite-connect/connections/
+    // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/
+    // likes    => [type="like-icon"]
+    // comments => [type="speech-bubble-icon"]
+    // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/posts/
+    // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/shares/
+    // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/documents/
+  });
   //
   // it.skip('add connections', () => {
   //   login();
