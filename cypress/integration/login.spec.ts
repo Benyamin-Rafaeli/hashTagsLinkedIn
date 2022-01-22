@@ -1,4 +1,4 @@
-///<reference path="../support/global.d.ts"/>
+/// <reference path="../support/global.d.ts"/>
 /// <reference types="cypress" />
 
 const username = Cypress.env('username');
@@ -52,7 +52,7 @@ const date = () => {
 };
 
 describe('linkedin', () => {
-  // before(() => cy.loginUi(username, password).waitForResources());
+  before(() => cy.loginUi(username, password).waitForResources());
 
   it('count all users that shared', () => {
     cy.navigate(undefined, hashTag);
@@ -74,13 +74,32 @@ describe('linkedin', () => {
     //   el.eq(0).find('href');
     // });
     // https://www.linkedin.com/in/narjes-abdalhady/recent-activity/shares/
-    cy.fixture('/pipl/hr_arr_00-25_clean.json').then(el => {
-      cy.log(el);
-      cy.visit('/');
-      // cy.visit(`${el[0]}/recent-activity/shares/`).waitForResources();
-      // scroll
-      // check which index liked
-    });
+    // cy.fixture('/pipl/hr_arr_00-25_clean.json').then(link => {
+    //   Cypress._.times(1, count => {
+    //     cy.visit(`${link[count].href}recent-activity/shares/`).waitForResources();
+    //     cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: 2000 }).waitForResources();
+    //     cy.scrollTo('top', { ensureScrollable: false, easing: 'linear', duration: 1500 }).waitForResources();
+    //     cy.get('.relative')
+    //       .then(posts => cy.wrap(posts).find('[type="like-icon"]').first())
+    //       .click()
+    //       .waitForResources();
+    //   });
+
+    cy.visit(`/in/benyaminrafaeli/recent-activity/shares/`).waitForResources();
+    cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: 2000 }).waitForResources();
+    cy.scrollTo('top', { ensureScrollable: false, easing: 'linear', duration: 1500 }).waitForResources();
+    cy.get('.relative')
+      .then(posts => cy.wrap(posts).find('[type="like-icon"]').eq(0))
+      .click()
+      .waitForResources()
+      .then(() => cy.get('.entry-point').find('[role="button"]').click().waitForResources())
+      .then(() => cy.get('.msg-form__contenteditable').click().type('hello friend').waitForResources())
+      .then(() => cy.get('[type="submit"]').click().waitForResources());
+
+    // check properties if clicked
+    // try to send message
+    // find artdeco-button__text with textMessage = Message
+
     // cy.visit('https://www.linkedin.com/in/kaylamenashe888/recent-activity/').wait(delay);
     // cy.get('[type="like-icon"]').children();
     // https://www.linkedin.com/mynetwork/invite-connect/connections/

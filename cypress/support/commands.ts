@@ -107,3 +107,4 @@ Cypress.Commands.add('navigate', (pageNumber: string, hashTag: string) => {
     },
   }).then(() => cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: randomNumber(10) }));
 });
+
