@@ -1,6 +1,68 @@
 /// <reference path="../support/global.d.ts"/>
 /// <reference types="cypress" />
 
+// const companies = [
+//   'Panorays',
+//   'Cybersaint',
+//   'UpGuard',
+//   'Balbix',
+//   'RiskRecon',
+//   'Whistic',
+//   'CyberGRX',
+//   'Lifars',
+//   'Praetorian',
+//   'Prevalent',
+//   'SecurityScoreCard',
+//   'BitSight',
+//   'OneTrust',
+//   'Sharedassessments',
+//   'Trustnetinc',
+//   'BlackKite',
+//   'ThirdPartyTrust',
+//   'BlueVoyant',
+//   'StrikeGraph',
+//   'SecurityTrails',
+//   'Vendict',
+//   'Helios',
+//   'RiskLedger',
+//   'RecordedFuture',
+//   'ProcessUnity',
+//   'NQC',
+//   'Aptible',
+//   'ZenGRC',
+//   'SafeBas',
+//   'SecurityPal',
+//   'Venminder',
+//   'ISS',
+//   'FICO',
+//   'RiskIQ',
+//   'Qualys',
+//   'STACKSI',
+//   'StackSi',
+//   'Itrust',
+//   'CYRATING',
+//   'Cyrating',
+//   'Lockpath',
+//   'XQcyber',
+//   'VenMinder',
+//   'Trusight',
+//   'SaiGlobal',
+//   'RSAArcher',
+//   'ProccessUnity',
+//   'Aruvio',
+//   'Aravo',
+//   'Bwise',
+//   'Miragin',
+//   'Zartech',
+//   'WolfPac',
+//   'Verego',
+//   'TrustMapp',
+//   'TrustExchange',
+//   'TraceSecurity',
+//   'Tevora',
+//   'SureCloud',
+//   'ServiceNow',
+// ];
 const username = Cypress.env('username');
 const password = Cypress.env('password');
 const hashTag = Cypress.env('hashTag');
@@ -51,10 +113,12 @@ const date = () => {
   return [year, month, day].join('-');
 };
 
+const companies = ['Panorays', 'Cybersaint', 'UpGuard', 'Balbix', 'RiskRecon'];
+
 describe('linkedin', () => {
   before(() => cy.loginUi(username, password).waitForResources());
 
-  it('count all users that shared', () => {
+  it.skip('count all users that shared', () => {
     cy.navigate(undefined, hashTag);
     cy.getTotalPageNumber();
 
@@ -67,8 +131,7 @@ describe('linkedin', () => {
       })
       .then(() => dup(arr));
   });
-
-  it.only('clicks for likes', () => {
+  it.skip('clicks for likes', () => {
     // chooseArea(101620260); // israel
     // cy.get('.app-aware-link').then(el => {
     //   el.eq(0).find('href');
@@ -110,11 +173,28 @@ describe('linkedin', () => {
     // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/shares/
     // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/documents/
   });
-  //
-  // it.skip('add connections', () => {
-  //   login();
-  //   // navigate to https://www.linkedin.com/mynetwork/
-  //   // find artdeco-button__text => Connect
-  //   //
-  // });
+
+  let graph = [];
+
+  it('get page count by companies', () => {
+    // companies.forEach(hashTag => {
+    const hashTag = companies[0];
+
+    cy.visit('https://www.linkedin.com/search/results/all/', {
+      qs: {
+        keywords: hashTag,
+        origin: 'GLOBAL_SEARCH_HEADER',
+        page: 1,
+      },
+    });
+    // cy.navigate(undefined, `#${hashTag}`);
+    // cy.getTotalPageNumber();
+    // cy.get('@times').then(time => {
+    //   graph.push({ Letter: hashTag, Freq: time });
+    // });
+
+    // cy.pause();
+    // cy.log(JSON.stringify(graph));
+    // });
+  });
 });
