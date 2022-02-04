@@ -2,7 +2,7 @@
   "env": {
     "username": "",
     "password": "",
-    "hashTag": "#panorays"
+    "hashTag": ""
   },
   "retries": {
     "runMode": 2,

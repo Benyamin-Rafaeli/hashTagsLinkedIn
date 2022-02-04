@@ -118,7 +118,7 @@ const companies = ['Panorays', 'Cybersaint', 'UpGuard', 'Balbix', 'RiskRecon'];
 describe('linkedin', () => {
   before(() => cy.loginUi(username, password).waitForResources());
 
-  it.skip('count all users that shared', () => {
+  it.only('count all users that shared', () => {
     cy.navigate(undefined, hashTag);
     cy.getTotalPageNumber();
 
@@ -131,6 +131,7 @@ describe('linkedin', () => {
       })
       .then(() => dup(arr));
   });
+
   it.skip('clicks for likes', () => {
     // chooseArea(101620260); // israel
     // cy.get('.app-aware-link').then(el => {
@@ -176,7 +177,7 @@ describe('linkedin', () => {
 
   let graph = [];
 
-  it('get page count by companies', () => {
+  it.skip('get page count by companies', () => {
     // companies.forEach(hashTag => {
     const hashTag = companies[0];
 
