@@ -1,0 +1,78 @@
+[
+  {
+    "Letter": "Panorays",
+    "Freq": "16"
+  },
+  {
+    "Letter": "Cybersaint",
+    "Freq": "27"
+  },
+  {
+    "Letter": "UpGuard",
+    "Freq": "22"
+  },
+  {
+    "Letter": "Balbix",
+    "Freq": "8"
+  },
+  {
+    "Letter": "RiskRecon",
+    "Freq": "10"
+  },
+  {
+    "Letter": "Whistic",
+    "Freq": "3"
+  },
+  {
+    "Letter": "CyberGRX",
+    "Freq": "19"
+  },
+  {
+    "Letter": "Lifars",
+    "Freq": "30"
+  },
+  {
+    "Letter": "Praetorian",
+    "Freq": "31"
+  },
+  {
+    "Letter": "Prevalent",
+    "Freq": "29"
+  },
+  {
+    "Letter": "SecurityScoreCard",
+    "Freq": "52"
+  },
+  {
+    "Letter": "BitSight",
+    "Freq": "40"
+  },
+  {
+    "Letter": "OneTrust",
+    "Freq": "55"
+  },
+  {
+    "Letter": "Sharedassessments",
+    "Freq": "6"
+  },
+  {
+    "Letter": "Trustnetinc",
+    "Freq": "0"
+  },
+  {
+    "Letter": "BlackKite",
+    "Freq": "6"
+  },
+  {
+    "Letter": "ThirdPartyTrust",
+    "Freq": "2"
+  },
+  {
+    "Letter": "BlueVoyant",
+    "Freq": "28"
+  },
+  {
+    "Letter": "StrikeGraph",
+    "Freq": "3"
+  }
+]

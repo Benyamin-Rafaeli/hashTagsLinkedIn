@@ -1,71 +1,73 @@
 /// <reference path="../support/global.d.ts"/>
 /// <reference types="cypress" />
 
-// const companies = [
-//   'Panorays',
-//   'Cybersaint',
-//   'UpGuard',
-//   'Balbix',
-//   'RiskRecon',
-//   'Whistic',
-//   'CyberGRX',
-//   'Lifars',
-//   'Praetorian',
-//   'Prevalent',
-//   'SecurityScoreCard',
-//   'BitSight',
-//   'OneTrust',
-//   'Sharedassessments',
-//   'Trustnetinc',
-//   'BlackKite',
-//   'ThirdPartyTrust',
-//   'BlueVoyant',
-//   'StrikeGraph',
-//   'SecurityTrails',
-//   'Vendict',
-//   'Helios',
-//   'RiskLedger',
-//   'RecordedFuture',
-//   'ProcessUnity',
-//   'NQC',
-//   'Aptible',
-//   'ZenGRC',
-//   'SafeBas',
-//   'SecurityPal',
-//   'Venminder',
-//   'ISS',
-//   'FICO',
-//   'RiskIQ',
-//   'Qualys',
-//   'STACKSI',
-//   'StackSi',
-//   'Itrust',
-//   'CYRATING',
-//   'Cyrating',
-//   'Lockpath',
-//   'XQcyber',
-//   'VenMinder',
-//   'Trusight',
-//   'SaiGlobal',
-//   'RSAArcher',
-//   'ProccessUnity',
-//   'Aruvio',
-//   'Aravo',
-//   'Bwise',
-//   'Miragin',
-//   'Zartech',
-//   'WolfPac',
-//   'Verego',
-//   'TrustMapp',
-//   'TrustExchange',
-//   'TraceSecurity',
-//   'Tevora',
-//   'SureCloud',
-//   'ServiceNow',
-// ];
+const companies = [
+  // 'Panorays',
+  // 'Cybersaint',
+  // 'UpGuard',
+  // 'Balbix',
+  // 'RiskRecon',
+  // 'Whistic',
+  // 'CyberGRX',
+  // 'Lifars',
+  // 'Praetorian',
+  // 'Prevalent',
+  // 'SecurityScoreCard',
+  // 'BitSight',
+  // 'OneTrust',
+  // 'Sharedassessments',
+  // 'Trustnetinc',
+  // 'BlackKite',
+  // 'ThirdPartyTrust',
+  // 'BlueVoyant',
+  // 'StrikeGraph',
+  'SecurityTrails',
+  'Vendict', --- // todo
+  'Helios',
+  'RiskLedger',
+  'RecordedFuture',
+  'ProcessUnity',
+  'NQC',
+  'Aptible',
+  'ZenGRC',
+  'SafeBas',
+  'SecurityPal',
+  'Venminder',
+  'ISS',
+  'FICO',
+  'RiskIQ',
+  'Qualys',
+  'STACKSI',
+  'StackSi',
+  'Itrust',
+  'CYRATING',
+  'Cyrating',
+  'Lockpath',
+  'XQcyber',
+  'VenMinder',
+  'Trusight',
+  'SaiGlobal',
+  'RSAArcher',
+  'ProccessUnity',
+  'Aruvio',
+  'Aravo',
+  'Bwise',
+  'Miragin',
+  'Zartech',
+  'WolfPac',
+  'Verego',
+  'TrustMapp',
+  'TrustExchange',
+  'TraceSecurity',
+  'Tevora',
+  'SureCloud',
+  'ServiceNow',
+  'CyberRx',
+  'Crossbeam',
+];
+
 const username = Cypress.env('username');
 const password = Cypress.env('password');
-const hashTag = Cypress.env('hashTag');
 
 const arr = [];
 
@@ -113,12 +115,29 @@ const date = () => {
   return [year, month, day].join('-');
 };
 
-const companies = ['Panorays', 'Cybersaint', 'UpGuard', 'Balbix', 'RiskRecon'];
+let graph = [];
 
 describe('linkedin', () => {
   before(() => cy.loginUi(username, password).waitForResources());
 
-  it.only('count all users that shared', () => {
+  it.only('count all general', () => {
+    let count = companies.length;
+    companies.forEach(hashTag => {
+      cy.navigate(undefined, `#${hashTag}`).waitForResources();
+      cy.getTotalPageNumber().waitForResources();
+      cy.get('@times')
+        .then(time => {
+          graph.push({ Letter: hashTag, Freq: String(time).trim() });
+          cy.log(JSON.stringify(graph));
+          cy.log(String(count));
+          count -= 1;
+        })
+        .then(() => cy.writeFile(`cypress/fixtures/graph.json`, graph));
+    });
+  });
+
+  // working
+  it.skip('count all users that shared', () => {
     cy.navigate(undefined, hashTag);
     cy.getTotalPageNumber();
 
@@ -174,8 +193,6 @@ describe('linkedin', () => {
     // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/shares/
     // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/documents/
   });
-
-  let graph = [];
 
   it.skip('get page count by companies', () => {
     // companies.forEach(hashTag => {

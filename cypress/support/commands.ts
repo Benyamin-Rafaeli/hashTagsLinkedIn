@@ -77,9 +77,17 @@ Cypress.Commands.add('waitForResources', (resources = []) => {
 });
 
 Cypress.Commands.add('getTotalPageNumber', () => {
-  cy.get('.artdeco-pagination__pages--number li')
-    .last()
-    .then(el => cy.wrap(el.text()).as('times'));
+  cy.get('.search-results-container')
+    .children()
+    .then(pageNumber => {
+      if (pageNumber.length > 2) {
+        cy.get('.artdeco-pagination__pages--number li')
+          .last()
+          .then(el => cy.wrap(el.text()).as('times'));
+      } else {
+        cy.wrap(0).as('times');
+      }
+    });
 });
 
 Cypress.Commands.add('loginUi', (username: string, password: string) => {
@@ -107,4 +115,3 @@ Cypress.Commands.add('navigate', (pageNumber: string, hashTag: string) => {
     },
   }).then(() => cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: randomNumber(10) }));
 });
-

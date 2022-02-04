@@ -5,6 +5,6 @@ declare namespace Cypress {
     loginUi(email: string, password: string): Chainable<void>;
     navigate(page?: string, hashTag: string): Chainable<void>;
     waitForResources(resources?: string[]): Chainable<void>;
-    getTotalPageNumber(): void;
+    getTotalPageNumber(): Chainable<void>;
   }
 }
