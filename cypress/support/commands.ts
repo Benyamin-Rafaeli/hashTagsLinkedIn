@@ -77,18 +77,65 @@ Cypress.Commands.add('waitForResources', (resources = []) => {
 });
 
 Cypress.Commands.add('getTotalPageNumber', () => {
-  cy.get('.search-results-container')
-    .children()
-    .then(pageNumber => {
-      if (pageNumber.length > 2) {
-        cy.get('.artdeco-pagination__pages--number li')
-          .last()
-          .then(el => cy.wrap(el.text()).as('times'));
-      } else {
-        cy.wrap(0).as('times');
-      }
-    });
+  cy.scrollTo('bottom', { ensureScrollable: false, duration: randomNumber(10) });
+
+  cy.get('.search-results-container').children().last().as('lastContainer');
+  cy.get('@lastContainer').then(containers => {
+    cy.wrap(containers)
+      .eq(0)
+      .each(el => {
+        if (el.text().includes('Previous')) {
+          cy.log(el.text());
+          cy.get('.artdeco-pagination__pages--number li')
+            .last()
+            .then(el => cy.wrap(el.text()).as('times'));
+        } else {
+          cy.wrap(0).as('times');
+        }
+      })
+      .waitForResources();
+  });
+
+  // .then(pageNumber => {
+  //   cy.wrap(pageNumber)
+  //   .then(div => {
+  //     const className = div[0].className;
+  //     cy.log(className);
+  //     debugger;
+  //   });
+
+  // const bottomContainer = pageNumber.children().find('artdeco-pagination').eq(0);
+
+  // debugger;
+  // .invoke('attr', 'class')
+  // if (bottomContainer) {
+  //   // artdeco-pagination
+  //   debugger;
+
+  //
+  //   // return;
+  // } else {
+  //   cy.wrap(0).as('times');
+  // }
+  // })
+  // .waitForResources();
 });
+
+// Cypress.Commands.add('getTotalPageNumber', () => {
+//   cy.get('.search-results-container')
+//     .children()
+//     .then(pageNumber => {
+//       debugger
+//       // cy.pause();
+//       if (pageNumber.length > 2) {
+//         cy.get('.artdeco-pagination__pages--number li')
+//           .last()
+//           .then(el => cy.wrap(el.text()).as('times'));
+//       } else {
+//         cy.wrap(0).as('times');
+//       }
+//     });
+// });
 
 Cypress.Commands.add('loginUi', (username: string, password: string) => {
   cy.visit('https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin').wait(delay);
@@ -113,5 +160,8 @@ Cypress.Commands.add('navigate', (pageNumber: string, hashTag: string) => {
       origin: 'GLOBAL_SEARCH_HEADER',
       page,
     },
-  }).then(() => cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: randomNumber(10) }));
+  })
+    .then(() => cy.scrollTo('bottom', { ensureScrollable: false, duration: randomNumber(10) }))
+    // easing: 'linear',
+    .waitForResources();
 });

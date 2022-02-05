@@ -21,27 +21,27 @@ const companies = [
   // 'ThirdPartyTrust',
   // 'BlueVoyant',
   // 'StrikeGraph',
-  'SecurityTrails',
-  'Vendict', --- // todo
-  'Helios',
-  'RiskLedger',
-  'RecordedFuture',
-  'ProcessUnity',
-  'NQC',
-  'Aptible',
-  'ZenGRC',
-  'SafeBas',
-  'SecurityPal',
-  'Venminder',
-  'ISS',
-  'FICO',
-  'RiskIQ',
-  'Qualys',
-  'STACKSI',
-  'StackSi',
-  'Itrust',
-  'CYRATING',
-  'Cyrating',
+
+  // 'SecurityTrails',
+  // 'Vendict',
+  // 'Helios',
+  // 'RiskLedger',
+  // 'RecordedFuture',
+  // 'ProcessUnity',
+  // 'NQC',
+  // 'Aptible',
+  // 'ZenGRC',
+  // 'SafeBas',
+  // 'SecurityPal',
+  // 'Venminder',
+  // 'ISS',
+  // 'FICO',
+  // 'RiskIQ',
+  // 'Qualys',
+  // 'StackSi',
+  // 'Itrust',
+  // 'Cyrating',
+
   'Lockpath',
   'XQcyber',
   'VenMinder',
@@ -123,8 +123,8 @@ describe('linkedin', () => {
   it.only('count all general', () => {
     let count = companies.length;
     companies.forEach(hashTag => {
-      cy.navigate(undefined, `#${hashTag}`).waitForResources();
-      cy.getTotalPageNumber().waitForResources();
+      cy.navigate(undefined, `#${hashTag}`);
+      cy.getTotalPageNumber();
       cy.get('@times')
         .then(time => {
           graph.push({ Letter: hashTag, Freq: String(time).trim() });
@@ -136,83 +136,83 @@ describe('linkedin', () => {
     });
   });
 
-  // working
-  it.skip('count all users that shared', () => {
-    cy.navigate(undefined, hashTag);
-    cy.getTotalPageNumber();
-
-    cy.get('@times')
-      .then(time => {
-        Cypress._.times(Number(time), n => {
-          cy.navigate(String(n + 1), hashTag).then(() => collectFromPage());
-          cy.log(`PAGE NUMBER: ${n}`);
-        });
-      })
-      .then(() => dup(arr));
-  });
-
-  it.skip('clicks for likes', () => {
-    // chooseArea(101620260); // israel
-    // cy.get('.app-aware-link').then(el => {
-    //   el.eq(0).find('href');
-    // });
-    // https://www.linkedin.com/in/narjes-abdalhady/recent-activity/shares/
-    // cy.fixture('/pipl/hr_arr_00-25_clean.json').then(link => {
-    //   Cypress._.times(1, count => {
-    //     cy.visit(`${link[count].href}recent-activity/shares/`).waitForResources();
-    //     cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: 2000 }).waitForResources();
-    //     cy.scrollTo('top', { ensureScrollable: false, easing: 'linear', duration: 1500 }).waitForResources();
-    //     cy.get('.relative')
-    //       .then(posts => cy.wrap(posts).find('[type="like-icon"]').first())
-    //       .click()
-    //       .waitForResources();
-    //   });
-
-    cy.visit(`/in/benyaminrafaeli/recent-activity/shares/`).waitForResources();
-    cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: 2000 }).waitForResources();
-    cy.scrollTo('top', { ensureScrollable: false, easing: 'linear', duration: 1500 }).waitForResources();
-    cy.get('.relative')
-      .then(posts => cy.wrap(posts).find('[type="like-icon"]').eq(0))
-      .click()
-      .waitForResources()
-      .then(() => cy.get('.entry-point').find('[role="button"]').click().waitForResources())
-      .then(() => cy.get('.msg-form__contenteditable').click().type('hello friend').waitForResources())
-      .then(() => cy.get('[type="submit"]').click().waitForResources());
-
-    // check properties if clicked
-    // try to send message
-    // find artdeco-button__text with textMessage = Message
-
-    // cy.visit('https://www.linkedin.com/in/kaylamenashe888/recent-activity/').wait(delay);
-    // cy.get('[type="like-icon"]').children();
-    // https://www.linkedin.com/mynetwork/invite-connect/connections/
-    // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/
-    // likes    => [type="like-icon"]
-    // comments => [type="speech-bubble-icon"]
-    // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/posts/
-    // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/shares/
-    // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/documents/
-  });
-
-  it.skip('get page count by companies', () => {
-    // companies.forEach(hashTag => {
-    const hashTag = companies[0];
-
-    cy.visit('https://www.linkedin.com/search/results/all/', {
-      qs: {
-        keywords: hashTag,
-        origin: 'GLOBAL_SEARCH_HEADER',
-        page: 1,
-      },
-    });
-    // cy.navigate(undefined, `#${hashTag}`);
-    // cy.getTotalPageNumber();
-    // cy.get('@times').then(time => {
-    //   graph.push({ Letter: hashTag, Freq: time });
-    // });
-
-    // cy.pause();
-    // cy.log(JSON.stringify(graph));
-    // });
-  });
+  // // working
+  // it.skip('count all users that shared', () => {
+  //   cy.navigate(undefined, hashTag);
+  //   cy.getTotalPageNumber();
+  //
+  //   cy.get('@times')
+  //     .then(time => {
+  //       Cypress._.times(Number(time), n => {
+  //         cy.navigate(String(n + 1), hashTag).then(() => collectFromPage());
+  //         cy.log(`PAGE NUMBER: ${n}`);
+  //       });
+  //     })
+  //     .then(() => dup(arr));
+  // });
+  //
+  // it.skip('clicks for likes', () => {
+  //   // chooseArea(101620260); // israel
+  //   // cy.get('.app-aware-link').then(el => {
+  //   //   el.eq(0).find('href');
+  //   // });
+  //   // https://www.linkedin.com/in/narjes-abdalhady/recent-activity/shares/
+  //   // cy.fixture('/pipl/hr_arr_00-25_clean.json').then(link => {
+  //   //   Cypress._.times(1, count => {
+  //   //     cy.visit(`${link[count].href}recent-activity/shares/`).waitForResources();
+  //   //     cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: 2000 }).waitForResources();
+  //   //     cy.scrollTo('top', { ensureScrollable: false, easing: 'linear', duration: 1500 }).waitForResources();
+  //   //     cy.get('.relative')
+  //   //       .then(posts => cy.wrap(posts).find('[type="like-icon"]').first())
+  //   //       .click()
+  //   //       .waitForResources();
+  //   //   });
+  //
+  //   cy.visit(`/in/benyaminrafaeli/recent-activity/shares/`).waitForResources();
+  //   cy.scrollTo('bottom', { ensureScrollable: false, easing: 'linear', duration: 2000 }).waitForResources();
+  //   cy.scrollTo('top', { ensureScrollable: false, easing: 'linear', duration: 1500 }).waitForResources();
+  //   cy.get('.relative')
+  //     .then(posts => cy.wrap(posts).find('[type="like-icon"]').eq(0))
+  //     .click()
+  //     .waitForResources()
+  //     .then(() => cy.get('.entry-point').find('[role="button"]').click().waitForResources())
+  //     .then(() => cy.get('.msg-form__contenteditable').click().type('hello friend').waitForResources())
+  //     .then(() => cy.get('[type="submit"]').click().waitForResources());
+  //
+  //   // check properties if clicked
+  //   // try to send message
+  //   // find artdeco-button__text with textMessage = Message
+  //
+  //   // cy.visit('https://www.linkedin.com/in/kaylamenashe888/recent-activity/').wait(delay);
+  //   // cy.get('[type="like-icon"]').children();
+  //   // https://www.linkedin.com/mynetwork/invite-connect/connections/
+  //   // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/
+  //   // likes    => [type="like-icon"]
+  //   // comments => [type="speech-bubble-icon"]
+  //   // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/posts/
+  //   // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/shares/
+  //   // https://www.linkedin.com/in/benyaminrafaeli/recent-activity/documents/
+  // });
+  //
+  // it.skip('get page count by companies', () => {
+  //   // companies.forEach(hashTag => {
+  //   const hashTag = companies[0];
+  //
+  //   cy.visit('https://www.linkedin.com/search/results/all/', {
+  //     qs: {
+  //       keywords: hashTag,
+  //       origin: 'GLOBAL_SEARCH_HEADER',
+  //       page: 1,
+  //     },
+  //   });
+  //   // cy.navigate(undefined, `#${hashTag}`);
+  //   // cy.getTotalPageNumber();
+  //   // cy.get('@times').then(time => {
+  //   //   graph.push({ Letter: hashTag, Freq: time });
+  //   // });
+  //
+  //   // cy.pause();
+  //   // cy.log(JSON.stringify(graph));
+  //   // });
+  // });
 });
