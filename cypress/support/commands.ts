@@ -77,7 +77,7 @@ Cypress.Commands.add('waitForResources', (resources = []) => {
 });
 
 Cypress.Commands.add('getTotalPageNumber', () => {
-  cy.scrollTo('bottom', { ensureScrollable: false, duration: randomNumber(10) });
+  cy.scrollTo('bottom', { ensureScrollable: false, duration: randomNumber(10) }).waitForResources();
 
   cy.get('.search-results-container').children().last().as('lastContainer');
   cy.get('@lastContainer').then(containers => {
@@ -95,47 +95,7 @@ Cypress.Commands.add('getTotalPageNumber', () => {
       })
       .waitForResources();
   });
-
-  // .then(pageNumber => {
-  //   cy.wrap(pageNumber)
-  //   .then(div => {
-  //     const className = div[0].className;
-  //     cy.log(className);
-  //     debugger;
-  //   });
-
-  // const bottomContainer = pageNumber.children().find('artdeco-pagination').eq(0);
-
-  // debugger;
-  // .invoke('attr', 'class')
-  // if (bottomContainer) {
-  //   // artdeco-pagination
-  //   debugger;
-
-  //
-  //   // return;
-  // } else {
-  //   cy.wrap(0).as('times');
-  // }
-  // })
-  // .waitForResources();
 });
-
-// Cypress.Commands.add('getTotalPageNumber', () => {
-//   cy.get('.search-results-container')
-//     .children()
-//     .then(pageNumber => {
-//       debugger
-//       // cy.pause();
-//       if (pageNumber.length > 2) {
-//         cy.get('.artdeco-pagination__pages--number li')
-//           .last()
-//           .then(el => cy.wrap(el.text()).as('times'));
-//       } else {
-//         cy.wrap(0).as('times');
-//       }
-//     });
-// });
 
 Cypress.Commands.add('loginUi', (username: string, password: string) => {
   cy.visit('https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin').wait(delay);

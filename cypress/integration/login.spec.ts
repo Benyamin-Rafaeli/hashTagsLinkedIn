@@ -1,69 +1,128 @@
 /// <reference path="../support/global.d.ts"/>
 /// <reference types="cypress" />
 
-const companies = [
-  // 'Panorays',
-  // 'Cybersaint',
-  // 'UpGuard',
-  // 'Balbix',
-  // 'RiskRecon',
-  // 'Whistic',
-  // 'CyberGRX',
-  // 'Lifars',
-  // 'Praetorian',
-  // 'Prevalent',
-  // 'SecurityScoreCard',
-  // 'BitSight',
-  // 'OneTrust',
-  // 'Sharedassessments',
-  // 'Trustnetinc',
-  // 'BlackKite',
-  // 'ThirdPartyTrust',
-  // 'BlueVoyant',
-  // 'StrikeGraph',
+// const competition = [
+//   'aptible',
+//   'aravo',
+//   'aruvio',
+//   'balbix',
+//   'bitsight',
+//   'blackkite',
+//   'bluevoyant',
+//   'bwise',
+//   'crossbeam',
+//   'cybergrx',
+//   'cyberrx',
+//   'cybersaint',
+//   'cyrating',
+//   'fico',
+//   'helios',
+//   'iss',
+//   'itrust',
+//   'lifars',
+//   'lockpath',
+//   'miragin',
+//   'nqc',
+//   'onetrust',
+//   'panorays',
+//   'praetorian',
+//   'prevalent',
+//   'proccessunity',
+//   'processunity',
+//   'qualys',
+//   'recordedfuture',
+//   'riskiq',
+//   'riskledger',
+//   'riskrecon',
+//   'rsaarcher',
+//   'safebas',
+//   'saiglobal',
+//   'securitypal',
+//   'securityscorecard',
+//   'securitytrails',
+//   'servicenow',
+//   'sharedassessments',
+//   'stacksi',
+//   'strikegraph',
+//   'surecloud',
+//   'tevora',
+//   'thirdpartytrust',
+//   'tracesecurity',
+//   'trusight',
+//   'trustexchange',
+//   'trustmapp',
+//   'trustnetinc',
+//   'upguard',
+//   'vendict',
+//   'venminder',
+//   'verego',
+//   'whistic',
+//   'wolfpac',
+//   'xqcyber',
+//   'zartech',
+//   'zengrc',
+// ];
 
-  // 'SecurityTrails',
-  // 'Vendict',
-  // 'Helios',
-  // 'RiskLedger',
-  // 'RecordedFuture',
-  // 'ProcessUnity',
-  // 'NQC',
-  // 'Aptible',
-  // 'ZenGRC',
-  // 'SafeBas',
-  // 'SecurityPal',
-  // 'Venminder',
-  // 'ISS',
-  // 'FICO',
-  // 'RiskIQ',
-  // 'Qualys',
-  // 'StackSi',
-  // 'Itrust',
-  // 'Cyrating',
-
-  'Lockpath',
-  'XQcyber',
-  'VenMinder',
-  'Trusight',
-  'SaiGlobal',
-  'RSAArcher',
-  'ProccessUnity',
-  'Aruvio',
-  'Aravo',
-  'Bwise',
-  'Miragin',
-  'Zartech',
-  'WolfPac',
-  'Verego',
-  'TrustMapp',
-  'TrustExchange',
-  'TraceSecurity',
-  'Tevora',
-  'SureCloud',
-  'ServiceNow',
-  'CyberRx',
-  'Crossbeam',
+const competition = [
+  'aptible',
+  'aravo',
+  'aruvio',
+  'balbix',
+  'bitsight',
+  'blackkite',
+  'bluevoyant',
+  'bwise',
+  'crossbeam',
+  'cybergrx',
+  'cyberrx',
+  'cybersaint',
+  'cyrating',
+  'fico',
+  'helios',
+  'iss',
+  'itrust',
+  'lifars',
+  'lockpath',
+  'miragin',
+  'nqc',
+  'onetrust',
+  'panorays',
+  'praetorian',
+  'prevalent',
+  'proccessunity',
+  'processunity',
+  'qualys',
+  'recordedfuture',
+  'riskiq',
+  'riskledger',
+  'riskrecon',
+  'rsaarcher',
+  'safebas',
+  'saiglobal',
+  'securitypal',
+  'securityscorecard',
+  'securitytrails',
+  'servicenow',
+  'sharedassessments',
+  'stacksi',
+  'strikegraph',
+  'surecloud',
+  'tevora',
+  'thirdpartytrust',
+  'tracesecurity',
+  'trusight',
+  'trustexchange',
+  'trustmapp',
+  'trustnetinc',
+  'upguard',
+  'vendict',
+  'venminder',
+  'verego',
+  'whistic',
+  'wolfpac',
+  'xqcyber',
+  'zartech',
+  'zengrc',
 ];
 
 const username = Cypress.env('username');
@@ -118,23 +177,32 @@ const date = () => {
 let graph = [];
 
 describe('linkedin', () => {
-  before(() => cy.loginUi(username, password).waitForResources());
-
-  it.only('count all general', () => {
-    let count = companies.length;
-    companies.forEach(hashTag => {
-      cy.navigate(undefined, `#${hashTag}`);
-      cy.getTotalPageNumber();
-      cy.get('@times')
-        .then(time => {
-          graph.push({ Letter: hashTag, Freq: String(time).trim() });
-          cy.log(JSON.stringify(graph));
-          cy.log(String(count));
-          count -= 1;
-        })
-        .then(() => cy.writeFile(`cypress/fixtures/graph.json`, graph));
+  it('orders', () => {
+    cy.fixture('shortCompaniesGraph.json').then(el => {
+      el.sort((b, a) => {
+        return a.Freq - b.Freq;
+      });
+      cy.log(JSON.stringify(el));
     });
   });
+
+  // before(() => cy.loginUi(username, password).waitForResources());
+
+  // it.only('count all general', () => {
+  //   let count = competition.length;
+  //   competition.forEach(hashTag => {
+  //     cy.navigate(undefined, `#${hashTag}`);
+  //     cy.getTotalPageNumber();
+  //     cy.get('@times')
+  //       .then(time => {
+  //         graph.push({ Letter: hashTag, Freq: String(time).trim() });
+  //         cy.log(JSON.stringify(graph));
+  //         cy.log(String(count));
+  //         count -= 1;
+  //       })
+  //       .then(() => cy.writeFile(`cypress/fixtures/graph.json`, graph));
+  //   });
+  // });
 
   // // working
   // it.skip('count all users that shared', () => {
